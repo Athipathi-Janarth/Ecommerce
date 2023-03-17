@@ -26,4 +26,13 @@ class Product {
         self.quantity = quantity
     }
     
+    func updateProduct(name: String, productDescription: String?, productRating: Int, companyID: Int, quantity: Int) {
+        self.name = name
+        self.productDescription = productDescription
+        self.productRating = productRating
+        self.companyID = companyID
+        self.quantity = quantity
+    }
+
+    
 }

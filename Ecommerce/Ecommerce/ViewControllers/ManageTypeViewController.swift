@@ -33,6 +33,8 @@ class ManageTypeViewController: UIViewController {
         if let index = eCommerce.typeDirectory.getProductTypeList().firstIndex(where: {$0.id == productType?.id }) {
             eCommerce.typeDirectory.productTypeList.remove(at: index)
         }
+        typeID.text="Product Type ID"
+        typeName.text=""
         self.dismiss(animated: true)
     }
     @IBAction func onBack(_ sender: Any) {

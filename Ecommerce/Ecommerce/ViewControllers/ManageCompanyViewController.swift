@@ -33,7 +33,6 @@ class ManageCompanyViewController: UIViewController {
         companyCountry.text = ""
         companyZip.text = ""
         companyType.text = ""
-        //alert(_msg: "Company Deleted Succesfully")
         self.dismiss(animated: true)
     }
     
@@ -86,6 +85,7 @@ class ManageCompanyViewController: UIViewController {
         companyCountry.text = ""
         companyZip.text = ""
         companyType.text = ""
+        self.dismiss(animated: true)
     }
     /*
     // MARK: - Navigation

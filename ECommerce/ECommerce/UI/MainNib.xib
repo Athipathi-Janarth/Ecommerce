@@ -156,7 +156,7 @@
                         <outlet property="typeName" destination="2dA-rw-sVD" id="cz9-kD-78f"/>
                     </connections>
                 </viewController>
-                <viewController id="t4m-Ji-pZ6" customClass="TestViewController" customModule="ECommerce" customModuleProvider="target">
+                <viewController id="t4m-Ji-pZ6" customClass="ProductViewController" customModule="ECommerce" customModuleProvider="target">
                     <view key="view" contentMode="scaleToFill" id="Kc7-3M-GgV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -203,6 +203,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Add Product"/>
+                                <connections>
+                                    <action selector="createProduct:" destination="t4m-Ji-pZ6" eventType="touchUpInside" id="eSj-W2-f9g"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="top" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3j8-HT-1Ip">
                                 <rect key="frame" x="29" y="171" width="334" height="200"/>
@@ -213,6 +216,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Product" id="WJW-t0-TGt"/>
+                    <connections>
+                        <outlet property="Quantity" destination="3cX-c8-Jiv" id="Lt2-49-XKI"/>
+                        <outlet property="Rating" destination="48o-ST-nH2" id="qj9-Ze-4th"/>
+                        <outlet property="companyID" destination="EFN-e7-Tn5" id="fdS-hz-Uam"/>
+                        <outlet property="productDescription" destination="Vcl-SC-1g3" id="503-Jl-rA7"/>
+                        <outlet property="productName" destination="e2z-ka-Gdd" id="Dag-vr-bwj"/>
+                        <outlet property="stackView" destination="3j8-HT-1Ip" id="CN8-lA-yIg"/>
+                    </connections>
                 </viewController>
             </viewControllers>
             <point key="canvasLocation" x="1464.885496183206" y="43.661971830985919"/>
