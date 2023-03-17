@@ -89,7 +89,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="top" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Yrf-iK-oCc">
-                                <rect key="frame" x="29" y="171" width="334" height="200"/>
+                                <rect key="frame" x="29" y="132" width="334" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stackView>
                         </subviews>
@@ -208,7 +208,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="top" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3j8-HT-1Ip">
-                                <rect key="frame" x="29" y="171" width="334" height="200"/>
+                                <rect key="frame" x="29" y="127" width="334" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stackView>
                         </subviews>
@@ -223,6 +223,82 @@
                         <outlet property="productDescription" destination="Vcl-SC-1g3" id="503-Jl-rA7"/>
                         <outlet property="productName" destination="e2z-ka-Gdd" id="Dag-vr-bwj"/>
                         <outlet property="stackView" destination="3j8-HT-1Ip" id="CN8-lA-yIg"/>
+                    </connections>
+                </viewController>
+                <viewController id="OSl-k5-E8k" customClass="PostViewController" customModule="ECommerce" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="wVp-dc-sx7">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Posts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pS8-5K-LdX">
+                                <rect key="frame" x="88" y="59" width="216" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nFX-Nn-nCe">
+                                <rect key="frame" x="29" y="345" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Price" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PPi-Fs-Xlx">
+                                <rect key="frame" x="29" y="528" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="une-Tz-6HB">
+                                <rect key="frame" x="29" y="584" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Company ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ddk-6h-udU">
+                                <rect key="frame" x="29" y="465" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Product Type ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wv4-If-ZSn">
+                                <rect key="frame" x="29" y="397" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OF3-6H-oOj">
+                                <rect key="frame" x="123" y="694" width="147" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add Post"/>
+                                <connections>
+                                    <action selector="createPost:" destination="OSl-k5-E8k" eventType="touchUpInside" id="v4r-oj-K2r"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="top" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-iN-3Un">
+                                <rect key="frame" x="29" y="111" width="334" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g6L-Dc-AW5">
+                                <rect key="frame" x="29" y="642" width="334" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="lEi-0U-IU8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Post" id="mFA-U1-Gjb"/>
+                    <connections>
+                        <outlet property="companyID" destination="Ddk-6h-udU" id="oEk-L6-k2m"/>
+                        <outlet property="postDescription" destination="g6L-Dc-AW5" id="lSM-I5-GLY"/>
+                        <outlet property="postedDate" destination="une-Tz-6HB" id="pST-N3-LOA"/>
+                        <outlet property="price" destination="PPi-Fs-Xlx" id="qnw-BU-qa8"/>
+                        <outlet property="productID" destination="nFX-Nn-nCe" id="QLg-Dy-zOL"/>
+                        <outlet property="productTypeID" destination="Wv4-If-ZSn" id="btf-z0-DOa"/>
+                        <outlet property="stackView" destination="J4S-iN-3Un" id="DsH-Pg-2L0"/>
                     </connections>
                 </viewController>
             </viewControllers>

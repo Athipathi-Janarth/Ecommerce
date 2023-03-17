@@ -18,6 +18,9 @@
 		7E4DF1A429C41D9400FFB186 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DF1A329C41D9400FFB186 /* ProductViewController.swift */; };
 		7E4DF1A629C4262300FFB186 /* ManageProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DF1A529C4262300FFB186 /* ManageProductViewController.swift */; };
 		7E4DF1A829C4268000FFB186 /* ManageProductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E4DF1A729C4268000FFB186 /* ManageProductView.xib */; };
+		7E4DF1AA29C4314900FFB186 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DF1A929C4314900FFB186 /* PostViewController.swift */; };
+		7E4DF1AC29C43E4000FFB186 /* ManagePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4DF1AB29C43E4000FFB186 /* ManagePostViewController.swift */; };
+		7E4DF1AE29C43E9300FFB186 /* ManagePostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E4DF1AD29C43E9300FFB186 /* ManagePostView.xib */; };
 		7E89B06E29C3682F00B754AC /* MainNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E89B06D29C3682F00B754AC /* MainNib.xib */; };
 		7E89B07229C368ED00B754AC /* ProductTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E89B07129C368ED00B754AC /* ProductTypeViewController.swift */; };
 		7E8D640229C389BE00B2CD12 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8D640129C389BE00B2CD12 /* TableViewCell.swift */; };
@@ -66,6 +69,9 @@
 		7E4DF1A329C41D9400FFB186 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		7E4DF1A529C4262300FFB186 /* ManageProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageProductViewController.swift; sourceTree = "<group>"; };
 		7E4DF1A729C4268000FFB186 /* ManageProductView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageProductView.xib; sourceTree = "<group>"; };
+		7E4DF1A929C4314900FFB186 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		7E4DF1AB29C43E4000FFB186 /* ManagePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagePostViewController.swift; sourceTree = "<group>"; };
+		7E4DF1AD29C43E9300FFB186 /* ManagePostView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManagePostView.xib; sourceTree = "<group>"; };
 		7E89B06D29C3682F00B754AC /* MainNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainNib.xib; sourceTree = "<group>"; };
 		7E89B07129C368ED00B754AC /* ProductTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTypeViewController.swift; sourceTree = "<group>"; };
 		7E8D640129C389BE00B2CD12 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 				7E4DF19D29C3CB5000FFB186 /* ManageCompanyView.xib */,
 				7E4DF19F29C3DEA200FFB186 /* ManageType.xib */,
 				7E4DF1A729C4268000FFB186 /* ManageProductView.xib */,
+				7E4DF1AD29C43E9300FFB186 /* ManagePostView.xib */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -160,6 +167,8 @@
 				7E4DF1A129C3E23800FFB186 /* ManageTypeViewController.swift */,
 				7E4DF1A329C41D9400FFB186 /* ProductViewController.swift */,
 				7E4DF1A529C4262300FFB186 /* ManageProductViewController.swift */,
+				7E4DF1A929C4314900FFB186 /* PostViewController.swift */,
+				7E4DF1AB29C43E4000FFB186 /* ManagePostViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 				7E0EA2DA29C2E47F00429742 /* LaunchScreen.storyboard in Resources */,
 				7E0EA2D729C2E47F00429742 /* Assets.xcassets in Resources */,
 				7E4DF1A029C3DEA200FFB186 /* ManageType.xib in Resources */,
+				7E4DF1AE29C43E9300FFB186 /* ManagePostView.xib in Resources */,
 				7E4DF1A829C4268000FFB186 /* ManageProductView.xib in Resources */,
 				7E89B06E29C3682F00B754AC /* MainNib.xib in Resources */,
 			);
@@ -315,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E4DF1AA29C4314900FFB186 /* PostViewController.swift in Sources */,
 				7E8D640229C389BE00B2CD12 /* TableViewCell.swift in Sources */,
 				7E0EA30429C2EA3B00429742 /* CompanyViewController.swift in Sources */,
 				7E4DF1A629C4262300FFB186 /* ManageProductViewController.swift in Sources */,
@@ -326,6 +337,7 @@
 				7E00AEA529C3AFC8006C7A4D /* ManageCompanyViewController.swift in Sources */,
 				7ED4007A29C36A9300F84B88 /* ECommerce.swift in Sources */,
 				7E89B07229C368ED00B754AC /* ProductTypeViewController.swift in Sources */,
+				7E4DF1AC29C43E4000FFB186 /* ManagePostViewController.swift in Sources */,
 				7ED4007929C36A9300F84B88 /* ProductTypeList.swift in Sources */,
 				7ED4007D29C36A9300F84B88 /* Company.swift in Sources */,
 				7E0EA2CE29C2E47E00429742 /* AppDelegate.swift in Sources */,
