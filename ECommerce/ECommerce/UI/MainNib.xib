@@ -28,6 +28,31 @@
                 <color key="backgroundColor" systemColor="systemYellowColor"/>
             </tabBar>
             <viewControllers>
+                <viewController id="TCe-Rc-vTR" customClass="OrderViewController" customModule="ECommerce" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="ePZ-51-WJ9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Orders" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrC-PZ-Aua">
+                                <rect key="frame" x="126" y="59" width="137" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cYg-9l-tDG">
+                                <rect key="frame" x="16" y="150" width="361" height="577"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="nrg-hZ-FH3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Order" id="uaS-hj-NgK"/>
+                    <connections>
+                        <outlet property="stackView" destination="cYg-9l-tDG" id="Dw9-pH-cnZ"/>
+                    </connections>
+                </viewController>
                 <viewController id="qQR-ub-mD2" customClass="CompanyViewController" customModule="ECommerce" customModuleProvider="target">
                     <view key="view" contentMode="scaleToFill" id="134-s3-d6i">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -286,6 +311,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="pBH-9h-4Mg">
+                                <rect key="frame" x="340" y="59" width="37" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system"/>
+                                <connections>
+                                    <action selector="onSearch:" destination="OSl-k5-E8k" eventType="touchUpInside" id="isg-LC-Jji"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lEi-0U-IU8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -306,6 +340,7 @@
         </tabBarController>
     </objects>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

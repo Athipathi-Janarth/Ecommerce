@@ -26,6 +26,7 @@ class ManageTypeViewController: UIViewController {
             alert(_msg: "Name is Required")
         }
         productType?.updateType(product_type: typename)
+        typeID.text="Product Type ID"
         typeName.text=""
         alert(_msg: "Type Updated Succesfully")
     }

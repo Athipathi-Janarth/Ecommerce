@@ -38,6 +38,11 @@ class PostViewController: UIViewController {
          dialogMessage.addAction(ok)
         self.present(dialogMessage, animated: true, completion: nil)
     }
+    @IBAction func onSearch(_ sender: Any) {
+        var search = SearchViewController(nibName: "SearchView", bundle: nil)
+        search.modalPresentationStyle = .fullScreen
+        self.present(search, animated: true)
+    }
     @IBAction func createPost(_ sender: UIButton) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

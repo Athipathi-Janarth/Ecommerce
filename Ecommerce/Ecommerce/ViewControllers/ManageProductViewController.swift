@@ -68,6 +68,7 @@ class ManageProductViewController: UIViewController {
         }
         product?.updateProduct(name: productname, productDescription: productDescriptions, productRating: rating, companyID: companyid, quantity: quantity)
         alert(_msg: "Product Updated Successfully")
+        productID.text = "Product ID"
         productName.text=""
         Rating.text = ""
         Quantity.text = ""

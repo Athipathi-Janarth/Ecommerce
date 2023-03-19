@@ -23,71 +23,16 @@ class ECommerceStore {
     var productList : ProductList
     var companyList : CompanyList
     var productPosts : ProductPostList
+    var orderList : OrderList
     
     init(){
         self.typeDirectory = ProductTypeList()
         self.productList = ProductList()
         self.companyList = CompanyList()
         self.productPosts = ProductPostList()
+        self.orderList = OrderList()
     }
    
-    func search(){
-        print("\nPlease select an option:")
-        print("1. Using Products")
-        print("2. Using Product Types")
-        print("3. Using Companies")
-        print("4. Using Product Posts")
-        print("5. Using Rating")
-        print("6. Back")
-        if let choice = readLine(), let intChoice = Int(choice) {
-            switch intChoice {
-            case 1:
-                do { try searchByProduct()
-                }catch InputError.emptyString(let field) {
-                    print("\(field) cannot be empty.")
-                }  catch {
-                    print("An error occurred: \(error)")
-                }
-                search()
-            case 2:
-                do { try searchByProductType()}catch InputError.emptyString(let field) {
-                    print("\(field) cannot be empty.")
-                }  catch {
-                    print("An error occurred: \(error)")
-                }
-                search()
-            case 3:
-                do { try searchByCompany()
-                }catch InputError.emptyString(let field) {
-                    print("\(field) cannot be empty.")
-                }  catch {
-                    print("An error occurred: \(error)")
-                }
-                search()
-            case 4:
-                do { try searchByPost()
-                }catch InputError.emptyString(let field) {
-                    print("\(field) cannot be empty.")
-                }  catch {
-                    print("An error occurred: \(error)")
-                }
-                search()
-            case 5:
-                do { try searchByRating()
-                }catch InputError.emptyString(let field) {
-                    print("\(field) cannot be empty.")
-                }  catch {
-                    print("An error occurred: \(error)")
-                }
-                search()
-            case 6:
-                search()
-            default:
-                print("Invalid choice. Please select a valid option.")
-                search()
-            }
-        }
-    }
     func searchByProduct() throws{
         //productList.displayProducts()
         print("Product ID:")

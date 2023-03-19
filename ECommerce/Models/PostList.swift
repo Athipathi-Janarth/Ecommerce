@@ -99,7 +99,6 @@ class ProductPostList{
             }
             print("Description:")
             let productDescription = readLine()
-            productPost.updatePost(price: price, description: productDescription)
         }
     }
   

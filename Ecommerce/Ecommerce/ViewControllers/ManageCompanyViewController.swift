@@ -80,6 +80,7 @@ class ManageCompanyViewController: UIViewController {
         }
         company?.updateCompany(name: companyname, address: companyaddress, country: companycountry, zip: zipCode, companyType: companytype)
         alert(_msg: "Company Updated Successfully")
+        companyId.text = "Company ID"
         companyName.text=""
         companyAddress.text = ""
         companyCountry.text = ""

@@ -36,7 +36,11 @@ class Product_Post {
         self.price = price
         self.description = description
     }
-    func updatePost(price:Float,description: String?){
+    func updatePost(productTypeID: Int, companyID: Int, productID: Int, postedDate: Date, price :Float,description:String? ) {
+        self.productTypeID = productTypeID
+        self.companyID = companyID
+        self.productID = productID
+        self.postedDate = postedDate
         self.price = price
         self.description = description
     }

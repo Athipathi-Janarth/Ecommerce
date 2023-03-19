@@ -11,6 +11,10 @@ class TableViewCell: UITableViewCell {
 
     @IBOutlet weak var ID: UILabel!
     @IBOutlet weak var Name: UILabel!
+    @IBOutlet weak var ProductType: UILabel!
+    @IBOutlet weak var Rating: UILabel!
+    @IBOutlet weak var Price: UILabel!
+    @IBOutlet weak var OrderDate: UILabel!
     
     
     override func awakeFromNib() {
@@ -22,5 +26,6 @@ class TableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 
 }
