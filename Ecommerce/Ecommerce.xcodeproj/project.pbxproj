@@ -127,7 +127,6 @@
 		7E0EA2C129C2E47E00429742 = {
 			isa = PBXGroup;
 			children = (
-				7E65D04629CCB25600E6A510 /* DataModel.xcdatamodeld */,
 				7E0EA2CC29C2E47E00429742 /* ECommerce */,
 				7E0EA2CB29C2E47E00429742 /* Products */,
 			);
@@ -153,6 +152,7 @@
 				7E0EA2D629C2E47F00429742 /* Assets.xcassets */,
 				7E0EA2D829C2E47F00429742 /* LaunchScreen.storyboard */,
 				7E0EA2DB29C2E47F00429742 /* Info.plist */,
+				7E65D04629CCB25600E6A510 /* DataModel.xcdatamodeld */,
 			);
 			path = ECommerce;
 			sourceTree = "<group>";
@@ -706,7 +706,8 @@
 				7E65D04729CCB25600E6A510 /* DataModel.xcdatamodel */,
 			);
 			currentVersion = 7E65D04729CCB25600E6A510 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
+			name = DataModel.xcdatamodeld;
+			path = ../DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
