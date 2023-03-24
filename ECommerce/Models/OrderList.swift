@@ -1,23 +1,23 @@
+////
+////  OrderList.swift
+////  ECommerce
+////
+////  Created by AthiPathi on 3/17/23.
+////
 //
-//  OrderList.swift
-//  ECommerce
+//import Foundation
+//class OrderList{
 //
-//  Created by AthiPathi on 3/17/23.
+//    var orderList:[Order]
 //
-
-import Foundation
-class OrderList{
-    
-    var orderList:[Order]
-    
-    init() {
-        self.orderList = []
-    }
-    
-    func addOrder(order:Order){
-        self.orderList.append(order)
-    }
-    func getOrderList()-> [Order]{
-        return self.orderList
-    }
-}
+//    init() {
+//        self.orderList = []
+//    }
+//
+//    func addOrder(order:Order){
+//        self.orderList.append(order)
+//    }
+//    func getOrderList()-> [Order]{
+//        return self.orderList
+//    }
+//}

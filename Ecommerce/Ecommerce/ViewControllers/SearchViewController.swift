@@ -9,6 +9,7 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,12 +39,12 @@ class SearchViewController: UIViewController {
             self.present(dialogMessage, animated: true, completion: nil)
             return
         }
-        let productList = eCommerce.productList.getProductList().filter {$0.productRating == productIDs }
+        let productList = try? context.fetch(Product.fetchRequest()).filter {$0.productRating == productIDs }
         var list:[Product_Post]
         list=[]
-        for product in productList {
-            let productpost = eCommerce.productPosts.getProductPostsList().filter{ $0.productID == product.id }
-            list+=productpost
+        for product in productList! {
+            let productpost = try? context.fetch(Product_Post.fetchRequest()).filter{ $0.productID == product.id }
+            list+=productpost!
         }
        displayTable(list: list)
     }
@@ -64,8 +65,8 @@ class SearchViewController: UIViewController {
               self.present(dialogMessage, animated: true, completion: nil)
                return
         }
-         let productpost = eCommerce.productPosts.getProductPostsList().filter{ $0.id == productIDs }
-        displayTable(list: productpost)
+         let productpost = try? context.fetch(Product_Post.fetchRequest()).filter{ $0.id == productIDs }
+        displayTable(list: productpost!)
     }
     @IBAction func typeIDChange(_ sender: Any) {
         let productId = typeID.text ?? ""
@@ -89,8 +90,8 @@ class SearchViewController: UIViewController {
             self.present(dialogMessage, animated: true, completion: nil)
             return
         }
-        let productpost = eCommerce.productPosts.getProductPostsList().filter{ $0.productTypeID == productIDs }
-       displayTable(list: productpost)
+        let productpost = try? context.fetch(Product_Post.fetchRequest()).filter{ $0.productTypeID == productIDs }
+       displayTable(list: productpost!)
     }
     @IBAction func postIDChange(_ sender: Any) {
         let productId = postID.text ?? ""
@@ -114,8 +115,8 @@ class SearchViewController: UIViewController {
                 self.present(dialogMessage, animated: true, completion: nil)
                return
         }
-         let productpost = eCommerce.productPosts.getProductPostsList().filter{ $0.id == productIDs }
-        displayTable(list: productpost)
+         let productpost = try? context.fetch(Product_Post.fetchRequest()).filter{ $0.id == productIDs }
+        displayTable(list: productpost!)
     }
     @IBAction func companyIDChange(_ sender: Any) {
         let productId = companyID.text ?? ""
@@ -139,8 +140,8 @@ class SearchViewController: UIViewController {
             self.present(dialogMessage, animated: true, completion: nil)
             return
         }
-        let productpost = eCommerce.productPosts.getProductPostsList().filter{ $0.companyID == productIDs }
-        displayTable(list: productpost)
+        let productpost = try? context.fetch(Product_Post.fetchRequest()).filter{ $0.companyID == productIDs }
+        displayTable(list: productpost!)
     }
     
     @IBOutlet weak var typeID: UITextField!
@@ -164,24 +165,24 @@ class SearchViewController: UIViewController {
     func displayTable(list: [Product_Post]){
         removeSubviews()
         for post in  list{
-            guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == post.companyID }) else{
+            guard let company =  try? context.fetch(Company.fetchRequest()).first(where: {$0.id == post.companyID }) else{
                 print("No Data")
-                return
+                continue
             }
-            guard let product =  eCommerce.productList.getProductList().first(where: {$0.id == post.productID }) else{
+            guard let product =  try? context.fetch(Product.fetchRequest()).first(where: {$0.id == post.productID }) else{
                 print("No Data")
-                return
+                continue
             }
-            guard let type =  eCommerce.typeDirectory.getProductTypeList().first(where: {$0.id == post.productTypeID }) else{
+            guard let type =  try? context.fetch(ProductType.fetchRequest()).first(where: {$0.id == post.productTypeID }) else{
                 print("No Data")
-                return
+                continue
             }
             let label = UILabel()
 //            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewPost(_:)))
 //            label.isUserInteractionEnabled = true
 //            label.tag=post.id
 //            label.addGestureRecognizer(tapGestureRecognizer)
-            label.text = "\(post.id)     \(product.name)     \(type.product_type)     \(company.name)    $\(post.price)"
+            label.text = "\(post.id)     \(product.name!)     \(type.product_Type!)     \(company.name!)    $\(post.price)"
             stackView.addArrangedSubview(label)
             }
         if(list.isEmpty){

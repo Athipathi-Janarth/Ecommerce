@@ -8,7 +8,7 @@
 import UIKit
 
 class OrderViewController: UIViewController {
-
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         //eCommerce.orderList.addOrder(order: Order(productTypeID: 1, postID: 1, productID: 1))
         //eCommerce.orderList.addOrder(order: Order(productTypeID: 2, postID: 2, productID: 2))
@@ -45,46 +45,52 @@ class OrderViewController: UIViewController {
         }
     func displayTable(){
         removeSubviews()
-        for order in  eCommerce.orderList.getOrderList(){
-            guard let product = eCommerce.productList.getProductList().first(where: { $0.id == order.productID }),
-                      let productType = eCommerce.typeDirectory.getProductTypeList().first(where: { $0.id == order.productTypeID }),
-                      let post = eCommerce.productPosts.getProductPostsList().first(where: { $0.id == order.postID })
+        do{
+            for order in  try context.fetch(Order.fetchRequest()){
+                guard let product = try? context.fetch(Product.fetchRequest()).first(where: { $0.id == order.productID }),
+                      let productType = try? context.fetch(ProductType.fetchRequest()).first(where: { $0.id == order.productTypeID }),
+                      let post = try? context.fetch(Product_Post.fetchRequest()).first(where: { $0.id == order.postID })
                 else {
                     continue
                 }
-            let label = UILabel()
-            let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(deleteOrder(_:)))
-            label.isUserInteractionEnabled = true
-            label.tag=order.order_id
-            label.addGestureRecognizer(tapGestureRecognizer1)
-            label.text = "\(order.order_id)     \(product.name)      \(productType.product_type)     Rating:\(product.productRating)/5      $\(post.price)"
-            stackView.addArrangedSubview(label)
-//            let cell = Bundle.main.loadNibNamed("CellView", owner: self, options: nil)?.first as! TableViewCell
-//            cell.ID?.text = "\(order.order_id)"
-//            cell.Name?.text = product.name
-//            cell.ProductType?.text = productType.product_type
-//            cell.Rating?.text = "Rating: \(product.productRating)/5"
-//            cell.Price?.text = "Price: $\(post.price)"
-//            cell.OrderDate?.text = "Order Date:\(order.Date)"
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteOrder(_:)))
-//            cell.isUserInteractionEnabled = true
-//            cell.tag=order.order_id
-//            cell.addGestureRecognizer(tapGestureRecognizer)
-//            cell.contentView.translatesAutoresizingMaskIntoConstraints = false
-//            cell.contentView.heightAnchor.constraint(equalToConstant: 71).isActive = true
-//            stackView?.spacing=8
-//            print("Adding to Stack")
-//            stackView?.addArrangedSubview(cell)
-           
+                let label = UILabel()
+                let tapGestureRecognizer1 = UITapGestureRecognizer(target: self, action: #selector(deleteOrder(_:)))
+                label.isUserInteractionEnabled = true
+                label.tag=Int(order.order_id)
+                label.addGestureRecognizer(tapGestureRecognizer1)
+                label.text = "\(order.order_id)     \(product.name!)      \(productType.product_Type!)     Rating:\(product.productRating)/5      $\(post.price)"
+                stackView?.addArrangedSubview(label)
+                //            let cell = Bundle.main.loadNibNamed("CellView", owner: self, options: nil)?.first as! TableViewCell
+                //            cell.ID?.text = "\(order.order_id)"
+                //            cell.Name?.text = product.name
+                //            cell.ProductType?.text = productType.product_type
+                //            cell.Rating?.text = "Rating: \(product.productRating)/5"
+                //            cell.Price?.text = "Price: $\(post.price)"
+                //            cell.OrderDate?.text = "Order Date:\(order.Date)"
+                //            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(deleteOrder(_:)))
+                //            cell.isUserInteractionEnabled = true
+                //            cell.tag=order.order_id
+                //            cell.addGestureRecognizer(tapGestureRecognizer)
+                //            cell.contentView.translatesAutoresizingMaskIntoConstraints = false
+                //            cell.contentView.heightAnchor.constraint(equalToConstant: 71).isActive = true
+                //            stackView?.spacing=8
+                //            print("Adding to Stack")
+                //            stackView?.addArrangedSubview(cell)
+                
             }
+        }
+        catch{
+            print("No orders Found")
+        }
     }
     @objc func deleteOrder(_ sender: UITapGestureRecognizer){
         guard let tag = sender.view?.tag else {
                 return
             }
         alert(_msg: "Order \(tag) will be deleted")
-        if let index = eCommerce.orderList.getOrderList().firstIndex(where: {$0.order_id == tag }) {
-            eCommerce.orderList.orderList.remove(at: index)
+        if let index = try? context.fetch(Order.fetchRequest()).first(where: {$0.order_id == tag }) {
+            context.delete(index)
+            try? context.save()
         }
         displayTable()
     }

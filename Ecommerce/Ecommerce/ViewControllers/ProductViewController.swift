@@ -9,11 +9,12 @@ import UIKit
 
 class ProductViewController: UIViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
-        eCommerce.productList.addProduct(product: Product(name: "iPhone", productDescription: "14 series", productRating: 5, companyID: 2, quantity: 50))
-        eCommerce.productList.addProduct(product: Product(name: "Camera", productDescription: "" , productRating: 4, companyID: 1, quantity: 10))
-        eCommerce.productList.addProduct(product: Product(name: "Jacket", productDescription: "", productRating: 5, companyID: 3, quantity: 70))
-        eCommerce.productList.addProduct(product: Product(name: "Sneaker", productDescription: "", productRating: 3, companyID: 3, quantity: 20))
+//        eCommerce.productList.addProduct(product: Product(name: "iPhone", productDescription: "14 series", productRating: 5, companyID: 2, quantity: 50))
+//        eCommerce.productList.addProduct(product: Product(name: "Camera", productDescription: "" , productRating: 4, companyID: 1, quantity: 10))
+//        eCommerce.productList.addProduct(product: Product(name: "Jacket", productDescription: "", productRating: 5, companyID: 3, quantity: 70))
+//        eCommerce.productList.addProduct(product: Product(name: "Sneaker", productDescription: "", productRating: 3, companyID: 3, quantity: 20))
         super.viewDidLoad()
         displayTable()
         // Do any additional setup after loading the view.
@@ -57,7 +58,7 @@ class ProductViewController: UIViewController {
             alert(_msg: "companyID Need to be a number")
             return
     }
-        guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == companyid }) else{
+        guard let company =  try? context.fetch(Company.fetchRequest()).first(where: {$0.id == companyid }) else{
             alert(_msg: "company ID doesn't exists")
             return
         }
@@ -68,8 +69,15 @@ class ProductViewController: UIViewController {
                 alert(_msg: "Quantity Need to be a number")
                 return
         }
-       var product=Product(name: productname, productDescription: productDescriptions, productRating: rating, companyID: companyid, quantity: quantity)
-        eCommerce.productList.addProduct(product: product)
+        var product=Product(context: self.context)
+        product.id=Int64(AppDelegate.productId)
+        product.name = productname
+        product.productDescription = productDescriptions
+        product.productRating = Int64(rating)
+        product.companyID = Int64(companyid)
+        product.quantity = Int64(quantity)
+        try? context.save()
+        AppDelegate.productId+=1
         alert(_msg: "Product Added Successfully")
         productName.text=""
         Rating.text = ""
@@ -94,26 +102,31 @@ class ProductViewController: UIViewController {
         }
     func displayTable(){
         removeSubviews()
-        for product in  eCommerce.productList.getProductList(){
-            guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == product.companyID }) else{
-                print("No Data")
-                return
+        do{
+            for product in  try context.fetch(Product.fetchRequest()){
+                guard let company =  try? context.fetch(Company.fetchRequest()).first(where: {$0.id == product.companyID }) else{
+                    print("No Data")
+                    continue
+                }
+                let label = UILabel()
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewProduct(_:)))
+                label.isUserInteractionEnabled = true
+                label.tag=Int(product.id)
+                label.addGestureRecognizer(tapGestureRecognizer)
+                label.text = "\(product.id)     \(product.name!)      \(company.name!)"
+                stackView.addArrangedSubview(label)
             }
-            let label = UILabel()
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewProduct(_:)))
-            label.isUserInteractionEnabled = true
-            label.tag=product.id
-            label.addGestureRecognizer(tapGestureRecognizer)
-            label.text = "\(product.id)     \(product.name)      \(company.name)"
-            stackView.addArrangedSubview(label)
-            }
+        }
+        catch{
+            alert(_msg: "No Product Found")
+        }
     }
     @objc func viewProduct(_ sender: UITapGestureRecognizer){
         guard let tag = sender.view?.tag else {
                 return
             }
             
-        guard let product = eCommerce.productList.getProductList().first(where: { $0.id == tag }) else{
+        guard let product = try? context.fetch(Product.fetchRequest()).first(where: { $0.id == tag }) else{
             alert(_msg: "Select a Valid Item")
             return
         }

@@ -10,6 +10,7 @@ import UIKit
 class ManageProductViewController: UIViewController {
 
     var product:Product?
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         super.viewDidLoad()
         let id=product?.id
@@ -55,7 +56,7 @@ class ManageProductViewController: UIViewController {
             alert(_msg: "companyID Need to be a number")
             return
     }
-        guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == companyid }) else{
+        guard let company =  try? context.fetch(Company.fetchRequest()).first(where: {$0.id == companyid }) else{
             alert(_msg: "company ID doesn't exists")
             return
         }
@@ -66,7 +67,11 @@ class ManageProductViewController: UIViewController {
                 alert(_msg: "Quantity Need to be a number")
                 return
         }
-        product?.updateProduct(name: productname, productDescription: productDescriptions, productRating: rating, companyID: companyid, quantity: quantity)
+        product?.name = productname
+        product?.productDescription = productDescriptions
+        product?.productRating = Int64(rating)
+        product?.companyID = company.id
+        product?.quantity = Int64(quantity)
         alert(_msg: "Product Updated Successfully")
         productID.text = "Product ID"
         productName.text=""
@@ -77,8 +82,9 @@ class ManageProductViewController: UIViewController {
     }
     
     @IBAction func onProductDelete(_ sender: Any) {
-        if let index = eCommerce.productList.getProductList().firstIndex(where: {$0.id == product?.id }) {
-            eCommerce.productList.productList.remove(at: index)
+        if let index = try? context.fetch(Product.fetchRequest()).first(where: {$0.id == product?.id }) {
+            context.delete(index)
+            try? context.save()
         }
         productID.text = "Product ID"
         productName.text=""

@@ -10,7 +10,7 @@ import UIKit
 class ManageCompanyViewController: UIViewController {
 
     var company:Company?
-    
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         super.viewDidLoad()
         let id=company?.id
@@ -19,13 +19,14 @@ class ManageCompanyViewController: UIViewController {
         companyName.text = company?.name
         companyAddress.text = company?.address
         companyCountry.text = company?.country
-        companyZip.text = "\(id?.description ?? "Nil")"
+        companyZip.text = "\(zip?.description ?? "Nil")"
         companyType.text = company?.companyType
         // Do any additional setup after loading the view.
     }
     @IBAction func onCompanyDelete(_ sender: Any) {
-        if let index = eCommerce.companyList.getCompanyList().firstIndex(where: {$0.id == company?.id }) {
-            eCommerce.companyList.companyList.remove(at: index)
+        if let index = try? context.fetch(Company.fetchRequest()).first(where: {$0.id == company?.id }) {
+            context.delete(index)
+            try? context.save()
         }
         companyId.text = "Company ID"
         companyName.text=""
@@ -78,7 +79,12 @@ class ManageCompanyViewController: UIViewController {
                 alert(_msg: "ZipCode Need to be a number")
                 return
         }
-        company?.updateCompany(name: companyname, address: companyaddress, country: companycountry, zip: zipCode, companyType: companytype)
+        company?.name = companyname
+        company?.address = companyaddress
+        company?.country = companycountry
+        company?.zip = Int64(zipCode)
+        company?.companyType = companytype
+        try? context.save()
         alert(_msg: "Company Updated Successfully")
         companyId.text = "Company ID"
         companyName.text=""

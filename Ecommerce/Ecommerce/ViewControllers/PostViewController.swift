@@ -9,13 +9,14 @@ import UIKit
 
 class PostViewController: UIViewController {
 
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 1, companyID: 2, productID: 1, postedDate: dateFormatter.date(from:"2022-03-01") ?? Date(), price: 500.00, description: ""))
-        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 1, companyID: 1, productID: 2, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 1000.00, description: ""))
-        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 2, companyID: 3, productID: 3, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 300.00, description: ""))
-        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 3, companyID: 3, productID: 4, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 250.00, description: ""))
+//        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 1, companyID: 2, productID: 1, postedDate: dateFormatter.date(from:"2022-03-01") ?? Date(), price: 500.00, description: ""))
+//        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 1, companyID: 1, productID: 2, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 1000.00, description: ""))
+//        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 2, companyID: 3, productID: 3, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 300.00, description: ""))
+//        eCommerce.productPosts.addProductPost(product_post: Product_Post(productTypeID: 3, companyID: 3, productID: 4, postedDate: dateFormatter.date(from:"2022-01-01") ?? Date(), price: 250.00, description: ""))
         super.viewDidLoad()
         displayTable()
 
@@ -60,7 +61,7 @@ class PostViewController: UIViewController {
             return
             
         }
-        guard let product =  eCommerce.productList.getProductList().first(where: {$0.id == productIDs }) else{
+        guard let product = try? context.fetch(Product.fetchRequest()).first(where: {$0.id == productIDs }) else{
             alert(" Product ID Invalid")
             return
         }
@@ -72,7 +73,7 @@ class PostViewController: UIViewController {
             alert(" Product Type ID need to be a number")
             return
         }
-        guard let productType =  eCommerce.typeDirectory.getProductTypeList().first(where: {$0.id == typeID }) else{
+        guard let productType =  try? context.fetch(ProductType.fetchRequest()).first(where: {$0.id == typeID }) else{
             alert(" Product Type ID Invalid")
             return
         }
@@ -100,13 +101,21 @@ class PostViewController: UIViewController {
             alert(" Company ID need to be a number")
             return
         }
-        guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == comapnyid }) else{
+        guard let company =  try? context.fetch(Company.fetchRequest()).first(where: {$0.id == comapnyid }) else{
             alert( " Company ID Invalid")
             return
         }
         
-        var post=Product_Post(productTypeID: productType.id, companyID: company.id, productID: product.id, postedDate: date, price: Price, description: description)
-        eCommerce.productPosts.addProductPost(product_post: post)
+        var post=Product_Post(context: self.context)
+        post.id=Int64(AppDelegate.postId)
+        post.productTypeID = productType.id
+        post.companyID = company.id
+        post.productID = product.id
+        post.postedDate = date
+        post.price = Price
+        post.postDescription = description
+        try? context.save()
+        AppDelegate.postId+=1
         productID.text=""
         productTypeID.text = ""
         price.text = ""
@@ -132,34 +141,39 @@ class PostViewController: UIViewController {
         }
     func displayTable(){
         removeSubviews()
-        for post in  eCommerce.productPosts.getProductPostsList(){
-            guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == post.companyID }) else{
-                print("No Data")
-                return
+        do{
+            for post in  try context.fetch(Product_Post.fetchRequest()){
+                guard let company = try? context.fetch(Company.fetchRequest()).first(where: {$0.id == post.companyID }) else{
+                    print("No Data")
+                    continue
+                }
+                guard let product =  try? context.fetch(Product.fetchRequest()).first(where: {$0.id == post.productID }) else{
+                    print("No Data")
+                    continue
+                }
+                guard let type =  try? context.fetch(ProductType.fetchRequest()).first(where: {$0.id == post.productTypeID }) else{
+                    print("No Data")
+                    continue
+                }
+                let label = UILabel()
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewPost(_:)))
+                label.isUserInteractionEnabled = true
+                label.tag=Int(post.id)
+                label.addGestureRecognizer(tapGestureRecognizer)
+                label.text = "\(post.id)     \(product.name!)     \(type.product_Type!)     \(company.name!)    $\(post.price)"
+                stackView.addArrangedSubview(label)
             }
-            guard let product =  eCommerce.productList.getProductList().first(where: {$0.id == post.productID }) else{
-                print("No Data")
-                return
-            }
-            guard let type =  eCommerce.typeDirectory.getProductTypeList().first(where: {$0.id == post.productTypeID }) else{
-                print("No Data")
-                return
-            }
-            let label = UILabel()
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewPost(_:)))
-            label.isUserInteractionEnabled = true
-            label.tag=post.id
-            label.addGestureRecognizer(tapGestureRecognizer)
-            label.text = "\(post.id)     \(product.name)     \(type.product_type)     \(company.name)    $\(post.price)"
-            stackView.addArrangedSubview(label)
-            }
+        }
+        catch{
+            alert("NO POST FOUND")
+        }
     }
     @objc func viewPost(_ sender: UITapGestureRecognizer){
         guard let tag = sender.view?.tag else {
                 return
             }
             
-        guard let post = eCommerce.productPosts.getProductPostsList().first(where: { $0.id == tag }) else{
+        guard let post = try? context.fetch(Product_Post.fetchRequest()).first(where: { $0.id == tag }) else{
             alert( "Select a Valid Item")
             return
         }

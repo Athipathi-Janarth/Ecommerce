@@ -9,7 +9,7 @@ import UIKit
 
 class ManagePostViewController: UIViewController {
     var post:Product_Post?
-
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     @IBOutlet weak var postID: UILabel!
     @IBOutlet weak var productID: UITextField!
     @IBOutlet weak var productTypeID: UITextField!
@@ -65,7 +65,7 @@ class ManagePostViewController: UIViewController {
             return
             
         }
-        guard let product =  eCommerce.productList.getProductList().first(where: {$0.id == productIDs }) else{
+        guard let product =  try? context.fetch(Product.fetchRequest()).first(where: {$0.id == productIDs }) else{
             alert(" Product ID Invalid")
             return
         }
@@ -77,7 +77,7 @@ class ManagePostViewController: UIViewController {
             alert(" Product Type ID need to be a number")
             return
         }
-        guard let productType =  eCommerce.typeDirectory.getProductTypeList().first(where: {$0.id == typeID }) else{
+        guard let productType =  try? context.fetch(ProductType.fetchRequest()).first(where: {$0.id == typeID }) else{
             alert(" Product Type ID Invalid")
             return
         }
@@ -105,12 +105,17 @@ class ManagePostViewController: UIViewController {
             alert(" Company ID need to be a number")
             return
         }
-        guard let company =  eCommerce.companyList.getCompanyList().first(where: {$0.id == comapnyid }) else{
+        guard let company = try? context.fetch(Company.fetchRequest()).first(where: {$0.id == comapnyid }) else{
             alert( " Company ID Invalid")
             return
         }
         
-        post?.updatePost(productTypeID: productType.id, companyID: company.id, productID: product.id, postedDate: date, price: Price, description: description)
+        post?.productTypeID = productType.id
+        post?.companyID = company.id
+        post?.productID = product.id
+        post?.postedDate = date
+        post?.price = Price
+        post?.postDescription = description
         postID.text="Post ID"
         productID.text=""
         productTypeID.text = ""
@@ -121,8 +126,9 @@ class ManagePostViewController: UIViewController {
         alert("Post Updated Successfully")
     }
     @IBAction func onPostDelete(_ sender: UIButton) {
-        if let index = eCommerce.productPosts.getProductPostsList().firstIndex(where: {$0.id == post?.id }) {
-            eCommerce.productPosts.productpostList.remove(at: index)
+        if let index = try? context.fetch(Product_Post.fetchRequest()).first(where: {$0.id == post?.id }) {
+            context.delete(index)
+            try? context.save()
         }
         postID.text="Post ID"
         productID.text=""
@@ -134,8 +140,14 @@ class ManagePostViewController: UIViewController {
         self.dismiss(animated: true)
     }
     @IBAction func onCreateOrder(_ sender: UIButton) {
-        var order=Order(productTypeID: post?.productTypeID  ??  0, postID: post?.id ??  0, productID: post?.productID ??  0)
-        eCommerce.orderList.addOrder(order: order)
+        var order=Order(context: self.context)
+        order.productTypeID = post?.productTypeID  ??  0
+        order.postID = post?.id ??  0
+        order.productID = post?.productID ??  0
+        order.order_id=Int64(AppDelegate.orderId)
+        order.date=Date()
+        try? context.save()
+        AppDelegate.orderId+=1
         alert("Order has been placed. Your Order ID is \(order.order_id)")
     }
     

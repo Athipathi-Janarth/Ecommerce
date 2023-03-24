@@ -1,23 +1,23 @@
+////
+////  ProductTypeList.swift
+////  Assignment5
+////
+////  Created by AthiPathi on 2/23/23.
+////
 //
-//  ProductTypeList.swift
-//  Assignment5
+//import Foundation
+//class ProductTypeList{
 //
-//  Created by AthiPathi on 2/23/23.
+//    var productTypeList:[ProductType]
 //
-
-import Foundation
-class ProductTypeList{
-    
-    var productTypeList:[ProductType]
-    
-    init() {
-        self.productTypeList = []
-    }
-    
-    func addProductType(producttype:ProductType){
-        self.productTypeList.append(producttype)
-    }
-    func getProductTypeList()-> [ProductType]{
-        return self.productTypeList
-    }
-}
+//    init() {
+//        self.productTypeList = []
+//    }
+//
+//    func addProductType(producttype:ProductType){
+//        self.productTypeList.append(producttype)
+//    }
+//    func getProductTypeList()-> [ProductType]{
+//        return self.productTypeList
+//    }
+//}

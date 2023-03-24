@@ -9,11 +9,12 @@ import UIKit
 
 class ManageTypeViewController: UIViewController {
     var productType:ProductType?
+    let context = (UIApplication.shared.delegate as! AppDelegate ).persistentContainer.viewContext
     override func viewDidLoad() {
         super.viewDidLoad()
         let id=productType?.id
         typeID.text="Product Type ID    \(id?.description ?? "Nil")"
-        typeName.text=productType?.product_type
+        typeName.text=productType?.product_Type
         // Do any additional setup after loading the view.
     }
    
@@ -25,14 +26,16 @@ class ManageTypeViewController: UIViewController {
         if typename.isEmpty  {
             alert(_msg: "Name is Required")
         }
-        productType?.updateType(product_type: typename)
+        productType?.product_Type=typename
+        try? context.save()
         typeID.text="Product Type ID"
         typeName.text=""
         alert(_msg: "Type Updated Succesfully")
     }
     @IBAction func onTypeDelete(_ sender: UIButton) {
-        if let index = eCommerce.typeDirectory.getProductTypeList().firstIndex(where: {$0.id == productType?.id }) {
-            eCommerce.typeDirectory.productTypeList.remove(at: index)
+        if let index = try? context.fetch(ProductType.fetchRequest()).first(where: {$0.id == productType?.id }) {
+            context.delete(index)
+            try? context.save()
         }
         typeID.text="Product Type ID"
         typeName.text=""

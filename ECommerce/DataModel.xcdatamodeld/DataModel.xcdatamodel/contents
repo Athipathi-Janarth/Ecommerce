@@ -2,15 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Company" representedClassName="Company" syncable="YES">
         <attribute name="address" attributeType="String"/>
-        <attribute name="companyType" attributeType="String"/>
+        <attribute name="companyType" optional="YES" attributeType="String"/>
         <attribute name="country" attributeType="String"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="zip" attributeType="String"/>
-        <relationship name="companyList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="companyList" inverseEntity="Company"/>
-    </entity>
-    <entity name="CompanyList" representedClassName="CompanyList" syncable="YES">
-        <relationship name="companyList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyList"/>
+        <attribute name="zip" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
@@ -18,10 +14,6 @@
         <attribute name="postID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="productID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="productTypeID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="orderList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OrderList" inverseName="orderList" inverseEntity="OrderList"/>
-    </entity>
-    <entity name="OrderList" representedClassName="OrderList" syncable="YES">
-        <relationship name="orderList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Order" inverseName="orderList" inverseEntity="Order"/>
     </entity>
     <entity name="Product" representedClassName="Product" syncable="YES">
         <attribute name="companyID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -30,7 +22,6 @@
         <attribute name="productDescription" attributeType="String"/>
         <attribute name="productRating" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="quantity" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="productList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="productList" inverseEntity="Product"/>
     </entity>
     <entity name="Product_Post" representedClassName="Product_Post" syncable="YES">
         <attribute name="companyID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -40,20 +31,9 @@
         <attribute name="price" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="productID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="productTypeID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="productpostList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product_PostList" inverseName="productpostList" inverseEntity="Product_PostList"/>
-    </entity>
-    <entity name="Product_PostList" representedClassName="Product_PostList" syncable="YES">
-        <relationship name="productpostList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product_Post" inverseName="productpostList" inverseEntity="Product_Post"/>
-    </entity>
-    <entity name="ProductList" representedClassName="ProductList" syncable="YES">
-        <relationship name="productList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product"/>
     </entity>
     <entity name="ProductType" representedClassName="ProductType" syncable="YES">
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="product_Type" attributeType="String"/>
-        <relationship name="productTypeList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductTypeList" inverseName="productTypeList" inverseEntity="ProductTypeList"/>
-    </entity>
-    <entity name="ProductTypeList" representedClassName="ProductTypeList" syncable="YES">
-        <relationship name="productTypeList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductType" inverseName="productTypeList" inverseEntity="ProductType"/>
     </entity>
 </model>
